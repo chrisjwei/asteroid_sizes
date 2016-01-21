@@ -1,0 +1,10 @@
+#define CANVAS_WIDTH 3200
+#define CANVAS_HEIGHT 1800
+#define CANVAS_BORDER 100
+#define DEFAULT_NUM 10000 // 100 meteorites initially
+#define MAX_SCALE 20.0
+#define DEFAULT_SCALE 15.0
+#define MIN_SCALE 9.0
+#define RESULT_SUCCESS 1
+#define RESULT_FAILURE 0
+#define RESULT_TERMINATE -1
