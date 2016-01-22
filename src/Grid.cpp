@@ -19,7 +19,7 @@ bool Grid::spaceAvaliable(int row, int col, int size){
       if (row+row_i >= ROWS || col+col_i >= COLS){
         return false;
       }
-      if (gridArray[row+row_i][col+col_i] == 1){
+      if (gridArray[row+row_i][col+col_i] != 0){
         return false;
       }
     }  
@@ -27,23 +27,23 @@ bool Grid::spaceAvaliable(int row, int col, int size){
   return true;
 }
 
-void Grid::allocateSpace(int row, int col, int size){
+void Grid::allocateSpace(int row, int col, int size, int i){
   int row_i, col_i;
   for (row_i = 0; row_i < size; row_i++){
     for (col_i = 0; col_i < size; col_i++){
-      gridArray[row+row_i][col+col_i] = 1;
+      gridArray[row+row_i][col+col_i] = i+1; // offset by 1
     }  
   }
 }
 
-int Grid::apply(Meteorite *m, double scale){
+int Grid::apply(Meteorite *m, double scale, int index){
   int size = max(int(m->getRadius() / scale),1);
   int drawSize = GRID_SIZE * size;
   int row, col;
   for (row=0; row < ROWS; row++){
     for (col=0; col < COLS; col++){
       if (spaceAvaliable(row, col, size)){
-        allocateSpace(row,col,size);
+        allocateSpace(row,col,size, index);
         m->setX(int(CANVAS_BORDER+(col*GRID_SIZE)));
         m->setY(int(CANVAS_BORDER+(row*GRID_SIZE)));
         m->setSize(drawSize);
@@ -77,4 +77,10 @@ void Grid::draw(){
       ofDrawRectangle(x,y,GRID_SIZE,GRID_SIZE);
     }
   }
+}
+
+int Grid::getRowCol(int x, int y){
+  int row = round((y - CANVAS_BORDER)/(GRID_SIZE));
+  int col = round((x - CANVAS_BORDER)/(GRID_SIZE));
+  return gridArray[row][col]-1;
 }

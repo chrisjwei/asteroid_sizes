@@ -8,9 +8,10 @@ class Meteorite{
   int y;
   int s;
   int colorRed, colorGreen, colorBlue;
-  bool hidden;
+  bool hidden, selected;
+  const char *name;
   public:
-    Meteorite(double);
+    Meteorite(double, const char *, const char *);
     double getRadius();
     void print();
     void setX(int);
@@ -19,6 +20,7 @@ class Meteorite{
     void draw();
     void hide();
     void show();
+    void drawText();
 };
 
 

@@ -330,7 +330,8 @@ obj/linux64/Release/src/Meteorite.o: \
  /home/chris/OF/libs/openFrameworks/video/ofVideoPlayer.h \
  /home/chris/OF/libs/openFrameworks/video/ofGstVideoPlayer.h \
  /home/chris/OF/libs/openFrameworks/3d/ofCamera.h \
- /home/chris/OF/libs/openFrameworks/3d/ofEasyCam.h
+ /home/chris/OF/libs/openFrameworks/3d/ofEasyCam.h \
+ /home/chris/OF/apps/myApps/myVis/src/constants.h
 
 /home/chris/OF/apps/myApps/myVis/src/Meteorite.h:
 
@@ -1025,3 +1026,5 @@ obj/linux64/Release/src/Meteorite.o: \
 /home/chris/OF/libs/openFrameworks/3d/ofCamera.h:
 
 /home/chris/OF/libs/openFrameworks/3d/ofEasyCam.h:
+
+/home/chris/OF/apps/myApps/myVis/src/constants.h:

@@ -45,12 +45,16 @@ void myApp::setup(){
 	n = csv.numRows;
 	scale = DEFAULT_SCALE;
 	updated = true;
+	selected = -1;
 	grid.clear();
+	ofBackground(200,200,200);
 
   int i;
   for (i=0; i<csv.numRows; i++){
   	double mass = stod(csv.data[i][2]);
-		Meteorite m = Meteorite(mass);
+  	const char *color = (csv.data[i][8]).c_str();
+  	const char *name = (csv.data[i][0]).c_str();
+		Meteorite m = Meteorite(mass, name, color);
 		meteoriteVector.push_back(m);
   }
 }
@@ -65,8 +69,9 @@ void myApp::update(){
 
 		hidden = 0;
 		count = 0;
+		int j = 0;
 		for (std::vector<Meteorite>::iterator m = meteoriteVector.begin(); m != meteoriteVector.end(); m++){
-			int result = grid.apply(&(*m), scale);
+			int result = grid.apply(&(*m), scale, j);
 			if (result == RESULT_SUCCESS){
 				m->show();
 				count++;
@@ -78,6 +83,7 @@ void myApp::update(){
 				hidden++;
 				break;
 			}
+			j++;
 		}
 		updated = false;
 	}
@@ -90,25 +96,21 @@ void myApp::draw(){
 	ofSetColor(0);
 	ofFill();
 	char s[128];
-	sprintf(s, "Top %d largest meteorites", csv.numRows-hidden);
+	sprintf(s, "Top %d largest meteorites, Hidden %d", csv.numRows-hidden, hidden);
 	ofDrawBitmapString(s, CANVAS_BORDER, CANVAS_BORDER-40);
-	sprintf(s, "Hidden: %d", hidden);
-	ofDrawBitmapString(s, CANVAS_BORDER, CANVAS_BORDER-20);
+	int i = 0;
 	for_each(meteoriteVector.begin(), meteoriteVector.end(), [&](Meteorite m){
 		m.draw();
+		if (i == selected){
+			m.drawText();
+		}
+		i++;
 	});
 	
 }
 
 //--------------------------------------------------------------
 void myApp::keyPressed(int key){
-	if (key == 'z'){
-		scale = max(MIN_SCALE, scale-1.0);
-		updated = true;
-	} else if(key == 'x'){
-		scale = min(MAX_SCALE, scale+1.0);
-		updated = true;
-	}
 }
 
 //--------------------------------------------------------------
@@ -117,6 +119,8 @@ void myApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void myApp::mouseMoved(int x, int y ){
+	int i = grid.getRowCol(x,y);
+	selected = i;
 	
 }
 

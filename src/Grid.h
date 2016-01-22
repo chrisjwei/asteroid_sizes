@@ -17,10 +17,11 @@ class Grid{
     Grid();
     void draw();
     void clear();
-    int apply(Meteorite *, double);
+    int apply(Meteorite *, double, int);
     void setLow(double);
     void setHigh(double);
     void foo(Meteorite);
-    void allocateSpace(int,int,int);
+    void allocateSpace(int,int,int,int);
     bool spaceAvaliable(int,int,int);
+    int getRowCol(int,int);
 };

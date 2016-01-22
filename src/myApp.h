@@ -66,7 +66,7 @@ class myApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		int n, hidden;
+		int n, hidden, selected;
 		double scale;
 
 		bool updated;
